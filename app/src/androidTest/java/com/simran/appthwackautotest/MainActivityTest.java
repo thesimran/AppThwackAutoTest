@@ -8,6 +8,7 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static org.hamcrest.Matchers.not;
 
 public class MainActivityTest {
 
@@ -17,6 +18,6 @@ public class MainActivityTest {
     @Test
     public void testButton() {
         onView(withId(R.id.the_button)).perform(click());
-        onView(withId(R.id.the_text_yo)).check(matches(isDisplayed()));
+        onView(withId(R.id.the_text_yo)).check(matches(not(isDisplayed())));
     }
 }
