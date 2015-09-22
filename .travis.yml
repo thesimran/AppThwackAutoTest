@@ -39,9 +39,6 @@ before_script:
     - ./gradlew -v
     - uname -a
     
-    # AWS/EC2
-    - sudo yum update
-    
 # build
 script:
     - ./build_and_deploy.sh
