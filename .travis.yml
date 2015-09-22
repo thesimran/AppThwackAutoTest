@@ -44,4 +44,4 @@ before_script:
     
 # build
 script:
-    - ./gradlew clean assembleDebug
+    - ./build_and_deploy.sh
