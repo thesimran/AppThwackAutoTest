@@ -35,6 +35,7 @@ before_script:
     
     # AWS CLI Using pip
     - sudo pip install awscli
+    - aws help
     
 # build
 script:
