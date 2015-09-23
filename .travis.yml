@@ -14,16 +14,11 @@ android:
         #- tools
         - build-tools-$ANDROID_BUILD_TOOLS_VERSION
         - android-$ANDROID_BUILD_API_LEVEL
-        #- android-$ANDROID_EMULATOR_API_LEVEL
-        
-        #- addon-google_apis_x86-google-$ANDROID_EMULATOR_API_LEVEL
         
         - extra-google-google_play_services
         - extra-android-support
         - extra-google-m2repository
         - extra-android-m2repository
-        
-        #- sys-img-x86-addon-google_apis-google-$ANDROID_EMULATOR_API_LEVEL
 
 notifications:
     email: true
