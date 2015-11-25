@@ -1,3 +1,0 @@
-#./gradlew assembleDebug
-
-aws help
