@@ -31,10 +31,11 @@ before_script:
     
     # AWS CLI Using pip
     - sudo pip install awscli
+    - sudo pip install pexpect
     
 # build
 script:
-    ./gradlew assembleDebug
-    python aws_test.py
+    - ./gradlew assembleDebug
+    - python aws_test.py
     
     
