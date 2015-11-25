@@ -7,7 +7,7 @@ child.logfile = sys.stdout
 child.expect('AWS Access Key ID')
 child.sendline(os.environ['AWS_ACCESS_KEY'])
 child.expect('AWS Secret Access Key')
-child.sendline('AWS_SECRET_ACCESS_KEY')
+child.sendline(os.environ['AWS_SECRET_ACCESS_KEY'])
 child.expect('Default region name')
 child.sendline('us-east-1')
 child.expect('Default output format')
