@@ -32,6 +32,7 @@ before_script:
     - sudo pip install awscli
     - sudo pip install pexpect
     - sudo pip install requests
+    - sudo pip install requests[security]
     - sudo pip install boto3 
     
 # build
