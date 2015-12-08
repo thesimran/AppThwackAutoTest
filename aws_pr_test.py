@@ -20,7 +20,6 @@ def upload_file(file_name, url):
 		print '\ncode = ' + str(response.status_code) + '\nresponse =\n' + response.text
 		sys.exit(1)
 	print "Success!"
-	print response
 
 if __name__ == '__main__':
 
@@ -71,7 +70,7 @@ if __name__ == '__main__':
 
 	print "Scheduling run..."
 	run_name = 'test_run_' + now
-	time.sleep(5)
+	time.sleep(10)
 	response = devicefarm.schedule_run(
 		projectArn=PROJECT_ARN, 
 		appArn=app_arn,
