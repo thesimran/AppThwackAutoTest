@@ -23,7 +23,7 @@ def upload_file(file_name, url):
 
 if __name__ == '__main__':
 
-	is_running_in_travis = false
+	is_running_in_travis = False
 	try:
 		is_running_in_travis = os.environ['IS_RUNNING_IN_TRAVIS']
 	except KeyError, e:

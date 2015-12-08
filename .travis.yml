@@ -1,5 +1,6 @@
 language: android
 jdk: oraclejdk7
+sudo: false
 
 env:
     global:
@@ -29,10 +30,10 @@ before_script:
     - ./gradlew -v
     - uname -a
     
-    - sudo pip install awscli
-    - sudo pip install pexpect
-    - sudo pip install requests
-    - sudo pip install boto3 
+    - pip install awscli
+    - pip install pexpect
+    - pip install requests
+    - pip install boto3 
     
 # build
 script:
