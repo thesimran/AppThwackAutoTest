@@ -5,6 +5,7 @@ import sys
 import datetime
 import requests
 import time
+import pexpect
 
 PROJECT_ARN = 'arn:aws:devicefarm:us-west-2:146362399349:project:4d5b565f-e47d-4d97-808b-f2a78a681edc'
 APP_FILE_PATH = 'app/build/outputs/apk/app-debug.apk'
@@ -22,8 +23,14 @@ def upload_file(file_name, url):
 
 if __name__ == '__main__':
 
+	is_running_in_travis = false
 	try:
-		if os.environ['IS_RUNNING_IN_TRAVIS']:
+		is_running_in_travis = os.environ['IS_RUNNING_IN_TRAVIS']
+	except KeyError, e:
+		pass
+
+	try:
+		if is_running_in_travis:
 			child = pexpect.spawn('aws configure')
 			child.logfile = sys.stdout
 			child.expect('AWS Access Key ID')
@@ -88,6 +95,5 @@ if __name__ == '__main__':
 		sys.exit(0)
 	else:
 		print 'Tests failed. Run ARN = ' + run_arn
-
 		sys.exit(1)
 

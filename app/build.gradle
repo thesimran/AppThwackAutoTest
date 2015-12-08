@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'devicefarm'
 
 android {
     compileSdkVersion 22
@@ -24,52 +23,6 @@ android {
         }
     }
 }
-
-/*
-devicefarm {
-    projectName "SimsDemoProject" // required: Must already exists.
-
-    devicePool "PR Pool" // optional: Defaults to "Top Devices"
-
-    //useUnmeteredDevices() // optional if you wish to use your un-metered devices
-
-
-    authentication {
-        accessKey "AKIAJVCSS6WMUS7ST2SQ"
-        secretKey "fyy1pAvU+1SkPe13oV7Gb+Xb3Pwv5xxRWbg5fiFj"
-
-        // or
-
-        //roleArn "My role arn" // Optional, if role arn is specified, it will be used.
-        // Otherwise use access and secret keys
-    }
-
-    /*
-    // optional block, radios default to 'on' state, all parameters optional
-    devicestate {
-
-        extraDataZipFile file("relative/path/to/zip") // default null
-        auxiliaryApps [file("path1"), file("path2")] // default empty list
-        wifi on
-        bluetooth off
-        gps off
-        nfc on
-        latitude 47.6204 // default
-        longitude -122.3491 // default
-    }
-    *
-
-    // Configure test type, if none default to instrumentation
-    // Fuzz
-    // fuzz { }
-
-    // Instrumentation
-    // See AWS Developer docs for filter (optional)
-    instrumentation {
-        filter "com.simran.appthwackautotest"
-    }
-}
-*/
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
