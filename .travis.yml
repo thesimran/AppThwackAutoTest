@@ -29,13 +29,15 @@ before_script:
     - ./gradlew -v
     - uname -a
     
-    # AWS CLI Using pip
     - sudo pip install awscli
     - sudo pip install pexpect
+    - sudo pip install requests
+    - sudo pip install boto3 
     
 # build
 script:
     - ./gradlew assembleDebug
-    - python aws_test.py
+    - ./gradlew assembleAndroidTest
+    - python aws_pr_test.py
     
     
