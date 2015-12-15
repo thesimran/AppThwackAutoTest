@@ -19,5 +19,7 @@ public class MainActivityTest {
     public void testButton() {
         onView(withId(R.id.the_button)).perform(click());
         onView(withId(R.id.the_text_yo)).check(matches(isDisplayed()));
+
+        
     }
 }
