@@ -32,23 +32,28 @@ if __name__ == '__main__':
 	print "is_running_in_travis = %s" % is_running_in_travis
 
 	# #try:
-	if is_running_in_travis:
-		print 'Configuring AWS...'
-		child = pexpect.spawn('aws configure')
-		child.logfile = sys.stdout
-		child.expect('AWS Access Key ID')
-		child.sendline(os.environ['AWS_ACCESS_KEY'])
-		child.expect('AWS Secret Access Key')
-		child.sendline(os.environ['AWS_SECRET_ACCESS_KEY'])
-		child.expect('Default region name')
-		child.sendline('us-west-2')
-		child.expect('Default output format')
-		child.sendline('text')
+	# if is_running_in_travis == 'true':
+	# 	print 'Configuring AWS...'
+	# 	child = pexpect.spawn('aws configure')
+	# 	child.logfile = sys.stdout
+	# 	child.expect('AWS Access Key ID')
+	# 	child.sendline(os.environ['AWS_ACCESS_KEY'])
+	# 	child.expect('AWS Secret Access Key')
+	# 	child.sendline(os.environ['AWS_SECRET_ACCESS_KEY'])
+	# 	child.expect('Default region name')
+	# 	child.sendline('us-west-2')
+	# 	child.expect('Default output format')
+	# 	child.sendline('text')
 	# #except KeyError, e:
 	# #	pass
 
+	if is_running_in_travis == 'true':
+		devicefarm = boto3.client('devicefarm', aws_access_key_id=os.environ['AWS_ACCESS_KEY'],
+                  aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'], region_name='us-west-2', )
+	else:
+		devicefarm = boto3.client('devicefarm')
+
 	now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S").replace(' ', '_').replace(':', '_')
-	devicefarm = boto3.client('devicefarm', region_name='us-west-2')
 	print "Creating APK upload..."
 	response = devicefarm.create_upload(projectArn=PROJECT_ARN, name='app-debug.apk', type='ANDROID_APP', 
 		contentType='application/octet-stream')
