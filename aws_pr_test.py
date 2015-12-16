@@ -31,6 +31,7 @@ if __name__ == '__main__':
 
 	#try:
 		if is_running_in_travis:
+			print 'Configuring AWS...'
 			child = pexpect.spawn('aws configure')
 			child.logfile = sys.stdout
 			child.expect('AWS Access Key ID')
