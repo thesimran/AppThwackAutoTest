@@ -29,7 +29,7 @@ if __name__ == '__main__':
 	except KeyError, e:
 		pass
 
-	try:
+	#try:
 		if is_running_in_travis:
 			child = pexpect.spawn('aws configure')
 			child.logfile = sys.stdout
@@ -40,9 +40,9 @@ if __name__ == '__main__':
 			child.expect('Default region name')
 			child.sendline('us-west-2')
 			child.expect('Default output format')
-			child.sendline('text') # Is this what we want?
-	except KeyError, e:
-		pass
+			child.sendline('text')
+	#except KeyError, e:
+	#	pass
 
 	now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S").replace(' ', '_').replace(':', '_')
 	devicefarm = boto3.client('devicefarm')
