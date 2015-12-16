@@ -5,7 +5,6 @@ import sys
 import datetime
 import requests
 import time
-import pexpect
 
 PROJECT_ARN = 'arn:aws:devicefarm:us-west-2:146362399349:project:4d5b565f-e47d-4d97-808b-f2a78a681edc'
 APP_FILE_PATH = 'app/build/outputs/apk/app-debug.apk'
@@ -28,24 +27,6 @@ if __name__ == '__main__':
 		is_running_in_travis = os.environ['IS_RUNNING_IN_TRAVIS']
 	except KeyError, e:
 		pass
-
-	print "is_running_in_travis = %s" % is_running_in_travis
-
-	# #try:
-	# if is_running_in_travis == 'true':
-	# 	print 'Configuring AWS...'
-	# 	child = pexpect.spawn('aws configure')
-	# 	child.logfile = sys.stdout
-	# 	child.expect('AWS Access Key ID')
-	# 	child.sendline(os.environ['AWS_ACCESS_KEY'])
-	# 	child.expect('AWS Secret Access Key')
-	# 	child.sendline(os.environ['AWS_SECRET_ACCESS_KEY'])
-	# 	child.expect('Default region name')
-	# 	child.sendline('us-west-2')
-	# 	child.expect('Default output format')
-	# 	child.sendline('text')
-	# #except KeyError, e:
-	# #	pass
 
 	if is_running_in_travis == 'true':
 		devicefarm = boto3.client('devicefarm', aws_access_key_id=os.environ['AWS_ACCESS_KEY'],
