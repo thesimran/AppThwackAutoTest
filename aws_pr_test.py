@@ -29,74 +29,74 @@ if __name__ == '__main__':
 	except KeyError, e:
 		pass
 
-	print "is_running_in_travis: %s" % is_running_in_travis
+	print "is_running_in_travis = %s" % is_running_in_travis
 
 	# #try:
-	# 	if is_running_in_travis:
-	# 		print 'Configuring AWS...'
-	# 		child = pexpect.spawn('aws configure')
-	# 		child.logfile = sys.stdout
-	# 		child.expect('AWS Access Key ID')
-	# 		child.sendline(os.environ['AWS_ACCESS_KEY'])
-	# 		child.expect('AWS Secret Access Key')
-	# 		child.sendline(os.environ['AWS_SECRET_ACCESS_KEY'])
-	# 		child.expect('Default region name')
-	# 		child.sendline('us-west-2')
-	# 		child.expect('Default output format')
-	# 		child.sendline('text')
+	if is_running_in_travis:
+		print 'Configuring AWS...'
+		child = pexpect.spawn('aws configure')
+		child.logfile = sys.stdout
+		child.expect('AWS Access Key ID')
+		child.sendline(os.environ['AWS_ACCESS_KEY'])
+		child.expect('AWS Secret Access Key')
+		child.sendline(os.environ['AWS_SECRET_ACCESS_KEY'])
+		child.expect('Default region name')
+		child.sendline('us-west-2')
+		child.expect('Default output format')
+		child.sendline('text')
 	# #except KeyError, e:
 	# #	pass
 
-	# now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S").replace(' ', '_').replace(':', '_')
-	# devicefarm = boto3.client('devicefarm', aws_access_key_id=, aws_secret_access_key=, region_name='us-west-2')
-	# print "Creating APK upload..."
-	# response = devicefarm.create_upload(projectArn=PROJECT_ARN, name='app-debug.apk', type='ANDROID_APP', 
-	# 	contentType='application/octet-stream')
-	# app_arn = response['upload']['arn']
-	# print "Successs!"
+	now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S").replace(' ', '_').replace(':', '_')
+	devicefarm = boto3.client('devicefarm', region_name='us-west-2')
+	print "Creating APK upload..."
+	response = devicefarm.create_upload(projectArn=PROJECT_ARN, name='app-debug.apk', type='ANDROID_APP', 
+		contentType='application/octet-stream')
+	app_arn = response['upload']['arn']
+	print "Successs!"
 
-	# app_upload_url = response['upload']['url']
-	# headers = { 'content-type' : 'application/octet-stream'}
-	# print 'Uploading APK...'
-	# upload_file(APP_FILE_PATH, app_upload_url)
+	app_upload_url = response['upload']['url']
+	headers = { 'content-type' : 'application/octet-stream'}
+	print 'Uploading APK...'
+	upload_file(APP_FILE_PATH, app_upload_url)
 
-	# print 'Creating test APK upload...'
-	# response = devicefarm.create_upload(projectArn=PROJECT_ARN, name=TEST_APK_FILE_NAME_BASE, 
-	# 	type='INSTRUMENTATION_TEST_PACKAGE', contentType='application/octet-stream')
-	# test_apk_arn = response['upload']['arn']
-	# print 'Success!'
+	print 'Creating test APK upload...'
+	response = devicefarm.create_upload(projectArn=PROJECT_ARN, name=TEST_APK_FILE_NAME_BASE, 
+		type='INSTRUMENTATION_TEST_PACKAGE', contentType='application/octet-stream')
+	test_apk_arn = response['upload']['arn']
+	print 'Success!'
 
-	# test_app_url = response['upload']['url']
-	# headers = { 'content-type' : 'application/octet-stream'}
-	# print 'Uploading test APK...'
-	# upload_file(TEST_APK_FILE_NAME_BASE, test_app_url)
+	test_app_url = response['upload']['url']
+	headers = { 'content-type' : 'application/octet-stream'}
+	print 'Uploading test APK...'
+	upload_file(TEST_APK_FILE_NAME_BASE, test_app_url)
 
-	# print "Scheduling run..."
-	# run_name = 'test_run_' + now
-	# time.sleep(10)
-	# response = devicefarm.schedule_run(
-	# 	projectArn=PROJECT_ARN, 
-	# 	appArn=app_arn,
-	# 	name=run_name,
-	# 	devicePoolArn=DEVICE_POOL_ARN, 
-	# 	test={
- #        'type': 'INSTRUMENTATION',
- #        'testPackageArn': test_apk_arn
- #    })
-	# print 'Run scheduled!'
-	# run_arn = response['run']['arn']
-	# status = ''
-	# while status != 'COMPLETED':
-	# 	print 'Current test run status: ' + status
-	# 	response = devicefarm.get_run(arn=run_arn)
-	# 	status = response['run']['status']
-	# 	time.sleep(2)
-	# print 'Test run complete!'
-	# result = response['run']['result']
-	# if result == 'PASSED':
-	# 	print 'All tests passed!'
-	# 	sys.exit(0)
-	# else:
-	# 	print 'Tests failed. Run ARN = ' + run_arn
-	# 	sys.exit(1)
+	print "Scheduling run..."
+	run_name = 'test_run_' + now
+	time.sleep(10)
+	response = devicefarm.schedule_run(
+		projectArn=PROJECT_ARN, 
+		appArn=app_arn,
+		name=run_name,
+		devicePoolArn=DEVICE_POOL_ARN, 
+		test={
+        'type': 'INSTRUMENTATION',
+        'testPackageArn': test_apk_arn
+    })
+	print 'Run scheduled!'
+	run_arn = response['run']['arn']
+	status = ''
+	while status != 'COMPLETED':
+		print 'Current test run status: ' + status
+		response = devicefarm.get_run(arn=run_arn)
+		status = response['run']['status']
+		time.sleep(2)
+	print 'Test run complete!'
+	result = response['run']['result']
+	if result == 'PASSED':
+		print 'All tests passed!'
+		sys.exit(0)
+	else:
+		print 'Tests failed. Run ARN = ' + run_arn
+		sys.exit(1)
 
