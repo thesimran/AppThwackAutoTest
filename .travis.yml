@@ -37,8 +37,8 @@ before_script:
     
 # build
 script:
-    # - ./gradlew assembleDebug
-    # - ./gradlew assembleAndroidTest
+    - ./gradlew assembleDebug
+    - ./gradlew assembleAndroidTest
     - python aws_pr_test.py
     
     
