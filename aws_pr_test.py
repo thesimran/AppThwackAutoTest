@@ -45,7 +45,7 @@ if __name__ == '__main__':
 	#	pass
 
 	now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S").replace(' ', '_').replace(':', '_')
-	devicefarm = boto3.client('devicefarm')
+	devicefarm = boto3.client('devicefarm', region_name='us-west-2')
 	print "Creating APK upload..."
 	response = devicefarm.create_upload(projectArn=PROJECT_ARN, name='app-debug.apk', type='ANDROID_APP', 
 		contentType='application/octet-stream')
