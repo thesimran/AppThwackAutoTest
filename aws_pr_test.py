@@ -59,7 +59,7 @@ if __name__ == '__main__':
 
 	print "Scheduling run..."
 	run_name = 'test_run_' + now
-	time.sleep(20)
+	time.sleep(25)
 	response = devicefarm.schedule_run(
 		projectArn=PROJECT_ARN, 
 		appArn=app_arn,
